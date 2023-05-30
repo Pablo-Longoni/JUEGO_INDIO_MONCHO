@@ -1,10 +1,10 @@
 // URL to explain PHASER scene: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scene/
 
-export default class Nivel2 extends Phaser.Scene {
+export default class Nivel3 extends Phaser.Scene {
   constructor() {
     // key of the scene
     // the key will be used to start the scene by other scenes
-    super("nivel2");
+    super("nivel3");
   }
 
   init(data) {
@@ -19,22 +19,22 @@ export default class Nivel2 extends Phaser.Scene {
 
   create() {
     // todo / para hacer: texto de puntaje
-    const map2 = this.make.tilemap({ key: "map2" });
+    const map3 = this.make.tilemap({ key: "map3" });
 
     // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
     // Phaser's cache (i.e. the name you used in preload)
-    const capaFondo = map2.addTilesetImage("sky", "tilesFondo");
-    const capaPlataformas = map2.addTilesetImage("platform", "tilesPlataforma");
+    const capaFondo = map3.addTilesetImage("sky", "tilesFondo");
+    const capaPlataformas = map3.addTilesetImage("platform", "tilesPlataforma");
 
     // Parameters: layer name (or index) from Tiled, tileset, x, y
-    const fondoLayer = map2.createLayer("fondo", capaFondo, 0, 0);
-    const plataformaLayer = map2.createLayer(
+    const fondoLayer = map3.createLayer("fondo", capaFondo, 0, 0);
+    const plataformaLayer = map3.createLayer(
       "plataformas",
       capaPlataformas,
       0,
       0
     );
-    const objectosLayer = map2.getObjectLayer("objetos");
+    const objectosLayer = map3.getObjectLayer("objetos");
 
     plataformaLayer.setCollisionByProperty({ colision: true });
 
@@ -42,7 +42,7 @@ export default class Nivel2 extends Phaser.Scene {
 
     // crear el jugador
     // Find in the Object Layer, the name "dude" and get position
-    let spawnPoint = map2.findObject(
+    let spawnPoint = map3.findObject(
       "objetos",
       (obj) => obj.name === "jugador"
     );
@@ -54,7 +54,7 @@ export default class Nivel2 extends Phaser.Scene {
     this.jugador.setBounce(0.1);
     this.jugador.setCollideWorldBounds(true);
 
-    spawnPoint = map2.findObject("objetos", (obj) => obj.name === "salida");
+    spawnPoint = map3.findObject("objetos", (obj) => obj.name === "salida");
     console.log("spawn point salida ", spawnPoint);
     this.salida = this.physics.add
       .sprite(spawnPoint.x, spawnPoint.y, "salida")
@@ -107,14 +107,15 @@ export default class Nivel2 extends Phaser.Scene {
       "Estrellas recolectadas: 0",
       { fontSize: "15px", fill: "#FFFFFF" }
     );
+
     //add camera to follow player
     this.cameras.main.startFollow(this.jugador);
 
     //world bounds
-    this.physics.world.setBounds(0, 0, map2.widthInPixels, map2.heightInPixels);
+    this.physics.world.setBounds(0, 0, map3.widthInPixels, map3.heightInPixels);
 
     // camera dont go out of the map
-    this.cameras.main.setBounds(0, 0, map2.widthInPixels, map2.heightInPixels);
+    this.cameras.main.setBounds(0, 0, map3.widthInPixels, map3.heightInPixels);
 
     // fijar texto para que no se mueva con la camara
     this.cantidadEstrellasTexto.setScrollFactor(0);
@@ -163,7 +164,7 @@ export default class Nivel2 extends Phaser.Scene {
 
     console.log("estrellas recolectadas", this.cantidadEstrellas);
 
-    this.scene.start("nivel3", {
+    this.scene.start("fin", {
       cantidadEstrellas: this.cantidadEstrellas,
       y: "este es un dato de muestra",
       z: "este es otro atributo enviado a otro escena",

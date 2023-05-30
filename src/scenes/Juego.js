@@ -104,6 +104,17 @@ export default class Juego extends Phaser.Scene {
       "Estrellas recolectadas: 0",
       { fontSize: "15px", fill: "#FFFFFF" }
     );
+    //add camera to follow player
+    this.cameras.main.startFollow(this.jugador);
+
+    //world bounds
+    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
+    // camera dont go out of the map
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
+    // fijar texto para que no se mueva con la camara
+    this.cantidadEstrellasTexto.setScrollFactor(0);
   }
 
   update() {
